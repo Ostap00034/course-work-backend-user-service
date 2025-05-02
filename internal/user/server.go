@@ -3,7 +3,7 @@ package user
 import (
 	"context"
 
-	userpb "github.com/Ostap00034/course-work-backend-user-service/api/user/v1"
+	userpb "github.com/Ostap00034/course-work-backend-api-specs/gen/go/user/v1"
 	"github.com/google/uuid"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"

@@ -5,7 +5,7 @@ import (
 	"net"
 	"os"
 
-	userpb "github.com/Ostap00034/course-work-backend-user-service/api/user/v1"
+	userpb "github.com/Ostap00034/course-work-backend-api-specs/gen/go/user/v1"
 	"github.com/Ostap00034/course-work-backend-user-service/db"
 	"github.com/Ostap00034/course-work-backend-user-service/internal/user"
 	"github.com/joho/godotenv"
@@ -31,10 +31,10 @@ func main() {
 	svc := user.NewService(repo)
 	srv := user.NewServer(svc)
 
-	lis, _ := net.Listen("tcp", os.Getenv("USER_SERVICE_ADDR"))
+	lis, _ := net.Listen("tcp", ":50052")
 	s := grpc.NewServer()
 	userpb.RegisterUserServiceServer(s, srv)
 
-	log.Printf("UserService on %s", os.Getenv("USER_SERVICE_ADDR"))
+	log.Println("UserService on :50052")
 	log.Fatal(s.Serve(lis))
 }

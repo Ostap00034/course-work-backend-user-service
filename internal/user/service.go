@@ -2,10 +2,16 @@ package user
 
 import (
 	"context"
+	"errors"
+	"fmt"
 
-	pb "github.com/Ostap00034/course-work-backend-user-service/api/user/v1"
+	pb "github.com/Ostap00034/course-work-backend-api-specs/gen/go/user/v1"
 	"github.com/Ostap00034/course-work-backend-user-service/util/password"
 	"github.com/google/uuid"
+)
+
+var (
+	ErrUserAlreadyExist = errors.New("пользователь с такой электронной почтой уже существует")
 )
 
 // Service описывает логику UserService.
@@ -26,6 +32,7 @@ func NewService(r Repository) Service {
 func (s *service) CreateUser(ctx context.Context, email, pass string) (uuid.UUID, error) {
 	hash, err := password.Hash(pass)
 	if err != nil {
+		fmt.Println(err)
 		return uuid.Nil, err
 	}
 	return s.repo.Create(ctx, email, hash)
