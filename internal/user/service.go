@@ -105,6 +105,8 @@ func (s *service) GetUser(ctx context.Context, id uuid.UUID) (*pb.GetUserByIdRes
 	user.Email = u.Email
 	user.Role = u.Role.String()
 	user.Fio = u.Fio
+	user.CreatedAt = u.CreatedAt.String()
+	user.UpdatedAt = u.UpdatedAt.String()
 
 	return &pb.GetUserByIdResponse{
 		User: &user,
