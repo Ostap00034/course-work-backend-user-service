@@ -15,6 +15,8 @@ const (
 	Label = "user"
 	// FieldID holds the string denoting the id field in the database.
 	FieldID = "id"
+	// FieldFio holds the string denoting the fio field in the database.
+	FieldFio = "fio"
 	// FieldEmail holds the string denoting the email field in the database.
 	FieldEmail = "email"
 	// FieldPasswordHash holds the string denoting the password_hash field in the database.
@@ -32,6 +34,7 @@ const (
 // Columns holds all SQL columns for user fields.
 var Columns = []string{
 	FieldID,
+	FieldFio,
 	FieldEmail,
 	FieldPasswordHash,
 	FieldRole,
@@ -50,6 +53,8 @@ func ValidColumn(column string) bool {
 }
 
 var (
+	// FioValidator is a validator for the "fio" field. It is called by the builders before save.
+	FioValidator func(string) error
 	// EmailValidator is a validator for the "email" field. It is called by the builders before save.
 	EmailValidator func(string) error
 	// DefaultCreatedAt holds the default value on creation for the "created_at" field.
@@ -95,6 +100,11 @@ type OrderOption func(*sql.Selector)
 // ByID orders the results by the id field.
 func ByID(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldID, opts...).ToFunc()
+}
+
+// ByFio orders the results by the fio field.
+func ByFio(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldFio, opts...).ToFunc()
 }
 
 // ByEmail orders the results by the email field.

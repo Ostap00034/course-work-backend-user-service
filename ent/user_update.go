@@ -28,6 +28,20 @@ func (uu *UserUpdate) Where(ps ...predicate.User) *UserUpdate {
 	return uu
 }
 
+// SetFio sets the "fio" field.
+func (uu *UserUpdate) SetFio(s string) *UserUpdate {
+	uu.mutation.SetFio(s)
+	return uu
+}
+
+// SetNillableFio sets the "fio" field if the given value is not nil.
+func (uu *UserUpdate) SetNillableFio(s *string) *UserUpdate {
+	if s != nil {
+		uu.SetFio(*s)
+	}
+	return uu
+}
+
 // SetEmail sets the "email" field.
 func (uu *UserUpdate) SetEmail(s string) *UserUpdate {
 	uu.mutation.SetEmail(s)
@@ -133,6 +147,11 @@ func (uu *UserUpdate) defaults() {
 
 // check runs all checks and user-defined validators on the builder.
 func (uu *UserUpdate) check() error {
+	if v, ok := uu.mutation.Fio(); ok {
+		if err := user.FioValidator(v); err != nil {
+			return &ValidationError{Name: "fio", err: fmt.Errorf(`ent: validator failed for field "User.fio": %w`, err)}
+		}
+	}
 	if v, ok := uu.mutation.Email(); ok {
 		if err := user.EmailValidator(v); err != nil {
 			return &ValidationError{Name: "email", err: fmt.Errorf(`ent: validator failed for field "User.email": %w`, err)}
@@ -157,6 +176,9 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 				ps[i](selector)
 			}
 		}
+	}
+	if value, ok := uu.mutation.Fio(); ok {
+		_spec.SetField(user.FieldFio, field.TypeString, value)
 	}
 	if value, ok := uu.mutation.Email(); ok {
 		_spec.SetField(user.FieldEmail, field.TypeString, value)
@@ -191,6 +213,20 @@ type UserUpdateOne struct {
 	fields   []string
 	hooks    []Hook
 	mutation *UserMutation
+}
+
+// SetFio sets the "fio" field.
+func (uuo *UserUpdateOne) SetFio(s string) *UserUpdateOne {
+	uuo.mutation.SetFio(s)
+	return uuo
+}
+
+// SetNillableFio sets the "fio" field if the given value is not nil.
+func (uuo *UserUpdateOne) SetNillableFio(s *string) *UserUpdateOne {
+	if s != nil {
+		uuo.SetFio(*s)
+	}
+	return uuo
 }
 
 // SetEmail sets the "email" field.
@@ -311,6 +347,11 @@ func (uuo *UserUpdateOne) defaults() {
 
 // check runs all checks and user-defined validators on the builder.
 func (uuo *UserUpdateOne) check() error {
+	if v, ok := uuo.mutation.Fio(); ok {
+		if err := user.FioValidator(v); err != nil {
+			return &ValidationError{Name: "fio", err: fmt.Errorf(`ent: validator failed for field "User.fio": %w`, err)}
+		}
+	}
 	if v, ok := uuo.mutation.Email(); ok {
 		if err := user.EmailValidator(v); err != nil {
 			return &ValidationError{Name: "email", err: fmt.Errorf(`ent: validator failed for field "User.email": %w`, err)}
@@ -352,6 +393,9 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 				ps[i](selector)
 			}
 		}
+	}
+	if value, ok := uuo.mutation.Fio(); ok {
+		_spec.SetField(user.FieldFio, field.TypeString, value)
 	}
 	if value, ok := uuo.mutation.Email(); ok {
 		_spec.SetField(user.FieldEmail, field.TypeString, value)

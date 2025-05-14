@@ -21,6 +21,12 @@ type UserCreate struct {
 	hooks    []Hook
 }
 
+// SetFio sets the "fio" field.
+func (uc *UserCreate) SetFio(s string) *UserCreate {
+	uc.mutation.SetFio(s)
+	return uc
+}
+
 // SetEmail sets the "email" field.
 func (uc *UserCreate) SetEmail(s string) *UserCreate {
 	uc.mutation.SetEmail(s)
@@ -144,6 +150,14 @@ func (uc *UserCreate) defaults() {
 
 // check runs all checks and user-defined validators on the builder.
 func (uc *UserCreate) check() error {
+	if _, ok := uc.mutation.Fio(); !ok {
+		return &ValidationError{Name: "fio", err: errors.New(`ent: missing required field "User.fio"`)}
+	}
+	if v, ok := uc.mutation.Fio(); ok {
+		if err := user.FioValidator(v); err != nil {
+			return &ValidationError{Name: "fio", err: fmt.Errorf(`ent: validator failed for field "User.fio": %w`, err)}
+		}
+	}
 	if _, ok := uc.mutation.Email(); !ok {
 		return &ValidationError{Name: "email", err: errors.New(`ent: missing required field "User.email"`)}
 	}
@@ -203,6 +217,10 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 	if id, ok := uc.mutation.ID(); ok {
 		_node.ID = id
 		_spec.ID.Value = &id
+	}
+	if value, ok := uc.mutation.Fio(); ok {
+		_spec.SetField(user.FieldFio, field.TypeString, value)
+		_node.Fio = value
 	}
 	if value, ok := uc.mutation.Email(); ok {
 		_spec.SetField(user.FieldEmail, field.TypeString, value)

@@ -18,6 +18,7 @@ func (User) Fields() []ent.Field {
 		field.UUID("id", uuid.UUID{}).
 			Default(uuid.New).
 			Unique(),
+		field.String("fio").NotEmpty().Comment("ФИО"),
 		field.String("email").
 			NotEmpty().
 			Unique().

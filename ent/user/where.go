@@ -55,6 +55,11 @@ func IDLTE(id uuid.UUID) predicate.User {
 	return predicate.User(sql.FieldLTE(FieldID, id))
 }
 
+// Fio applies equality check predicate on the "fio" field. It's identical to FioEQ.
+func Fio(v string) predicate.User {
+	return predicate.User(sql.FieldEQ(FieldFio, v))
+}
+
 // Email applies equality check predicate on the "email" field. It's identical to EmailEQ.
 func Email(v string) predicate.User {
 	return predicate.User(sql.FieldEQ(FieldEmail, v))
@@ -73,6 +78,71 @@ func CreatedAt(v time.Time) predicate.User {
 // UpdatedAt applies equality check predicate on the "updated_at" field. It's identical to UpdatedAtEQ.
 func UpdatedAt(v time.Time) predicate.User {
 	return predicate.User(sql.FieldEQ(FieldUpdatedAt, v))
+}
+
+// FioEQ applies the EQ predicate on the "fio" field.
+func FioEQ(v string) predicate.User {
+	return predicate.User(sql.FieldEQ(FieldFio, v))
+}
+
+// FioNEQ applies the NEQ predicate on the "fio" field.
+func FioNEQ(v string) predicate.User {
+	return predicate.User(sql.FieldNEQ(FieldFio, v))
+}
+
+// FioIn applies the In predicate on the "fio" field.
+func FioIn(vs ...string) predicate.User {
+	return predicate.User(sql.FieldIn(FieldFio, vs...))
+}
+
+// FioNotIn applies the NotIn predicate on the "fio" field.
+func FioNotIn(vs ...string) predicate.User {
+	return predicate.User(sql.FieldNotIn(FieldFio, vs...))
+}
+
+// FioGT applies the GT predicate on the "fio" field.
+func FioGT(v string) predicate.User {
+	return predicate.User(sql.FieldGT(FieldFio, v))
+}
+
+// FioGTE applies the GTE predicate on the "fio" field.
+func FioGTE(v string) predicate.User {
+	return predicate.User(sql.FieldGTE(FieldFio, v))
+}
+
+// FioLT applies the LT predicate on the "fio" field.
+func FioLT(v string) predicate.User {
+	return predicate.User(sql.FieldLT(FieldFio, v))
+}
+
+// FioLTE applies the LTE predicate on the "fio" field.
+func FioLTE(v string) predicate.User {
+	return predicate.User(sql.FieldLTE(FieldFio, v))
+}
+
+// FioContains applies the Contains predicate on the "fio" field.
+func FioContains(v string) predicate.User {
+	return predicate.User(sql.FieldContains(FieldFio, v))
+}
+
+// FioHasPrefix applies the HasPrefix predicate on the "fio" field.
+func FioHasPrefix(v string) predicate.User {
+	return predicate.User(sql.FieldHasPrefix(FieldFio, v))
+}
+
+// FioHasSuffix applies the HasSuffix predicate on the "fio" field.
+func FioHasSuffix(v string) predicate.User {
+	return predicate.User(sql.FieldHasSuffix(FieldFio, v))
+}
+
+// FioEqualFold applies the EqualFold predicate on the "fio" field.
+func FioEqualFold(v string) predicate.User {
+	return predicate.User(sql.FieldEqualFold(FieldFio, v))
+}
+
+// FioContainsFold applies the ContainsFold predicate on the "fio" field.
+func FioContainsFold(v string) predicate.User {
+	return predicate.User(sql.FieldContainsFold(FieldFio, v))
 }
 
 // EmailEQ applies the EQ predicate on the "email" field.

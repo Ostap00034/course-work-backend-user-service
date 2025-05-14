@@ -1,0 +1,9 @@
+2025/05/02 22:54:51 UserService on :50052
+panic: runtime error: invalid memory address or nil pointer dereference
+[signal SIGSEGV: segmentation violation code=0x2 addr=0x20 pc=0x100e19424]
+
+goroutine 1 [running]:
+google.golang.org/grpc.(*Server).Serve(0x140003c4000, {0x0, 0x0})
+	/Users/ostapchichiginarov/go/pkg/mod/google.golang.org/grpc@v1.72.0/server.go:869 +0x164
+main.main()
+	/Users/ostapchichiginarov/CourseWork/course-work-backend/user-service/cmd/api/main.go:39 +0x218

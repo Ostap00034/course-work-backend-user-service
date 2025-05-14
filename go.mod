@@ -4,17 +4,17 @@ go 1.23.2
 
 require (
 	entgo.io/ent v0.14.4
+	github.com/Ostap00034/course-work-backend-api-specs v0.1.6
 	github.com/google/uuid v1.6.0
 	github.com/joho/godotenv v1.5.1
 	github.com/lib/pq v1.10.9
-	google.golang.org/protobuf v1.36.6
 )
 
 require (
-	github.com/Ostap00034/course-work-backend-api-specs v0.1.0 // indirect
 	golang.org/x/net v0.35.0 // indirect
 	golang.org/x/sys v0.32.0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20250218202821-56aae31c358a // indirect
+	google.golang.org/protobuf v1.36.6 // indirect
 )
 
 require (
