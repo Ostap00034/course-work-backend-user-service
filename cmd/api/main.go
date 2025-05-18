@@ -20,9 +20,9 @@ func init() {
 }
 
 func main() {
-	dbString, exists := os.LookupEnv("DB_CONN_STRING")
+	dbString, exists := os.LookupEnv("USER_DB_CONN_STRING")
 	if !exists {
-		log.Fatal("not DB_CONN_STRING in .env file")
+		log.Fatal("not USER_DB_CONN_STRING in .env file")
 	}
 	client := db.NewClient(dbString)
 	defer client.Close()
