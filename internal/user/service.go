@@ -18,7 +18,7 @@ var (
 
 // Service описывает логику UserService.
 type Service interface {
-	CreateUser(ctx context.Context, email, fio, password string) (uuid.UUID, error)
+	CreateUser(ctx context.Context, email, fio, role, password string) (uuid.UUID, error)
 	ValidateCredentials(ctx context.Context, email, password string) (uuid.UUID, string, error)
 	GetUser(ctx context.Context, id uuid.UUID) (*pb.GetUserByIdResponse, error)
 	GetAllUsers(ctx context.Context) (*pb.GetUsersResponse, error)
@@ -51,13 +51,13 @@ func (s *service) ChangeUser(ctx context.Context, userId string, newUser *common
 	}, nil
 }
 
-func (s *service) CreateUser(ctx context.Context, email, fio, pass string) (uuid.UUID, error) {
+func (s *service) CreateUser(ctx context.Context, email, fio, role, pass string) (uuid.UUID, error) {
 	hash, err := password.Hash(pass)
 	if err != nil {
 		fmt.Println(err)
 		return uuid.Nil, err
 	}
-	return s.repo.Create(ctx, email, hash)
+	return s.repo.Create(ctx, email, fio, role, hash)
 }
 
 func (s *service) GetAllUsers(ctx context.Context) (*pb.GetUsersResponse, error) {

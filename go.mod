@@ -4,7 +4,7 @@ go 1.23.2
 
 require (
 	entgo.io/ent v0.14.4
-	github.com/Ostap00034/course-work-backend-api-specs v0.1.6
+	github.com/Ostap00034/course-work-backend-api-specs v0.1.16
 	github.com/google/uuid v1.6.0
 	github.com/joho/godotenv v1.5.1
 	github.com/lib/pq v1.10.9

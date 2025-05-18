@@ -22,7 +22,7 @@ var (
 
 // Repository определяет работу с базой User.
 type Repository interface {
-	Create(ctx context.Context, email, passwordHash string) (uuid.UUID, error)
+	Create(ctx context.Context, email, fio, role, passwordHash string) (uuid.UUID, error)
 	GetByEmail(ctx context.Context, email string) (*ent.User, error)
 	GetByID(ctx context.Context, id uuid.UUID) (*ent.User, error)
 	UpdateTimestamp(ctx context.Context, id uuid.UUID) error
@@ -87,10 +87,12 @@ func (r *repo) Change(ctx context.Context, userId string, newUser *commonpb.User
 
 	return updatedUser, nil
 }
-func (r *repo) Create(ctx context.Context, email, passwordHash string) (uuid.UUID, error) {
+func (r *repo) Create(ctx context.Context, email, fio, role, passwordHash string) (uuid.UUID, error) {
 	u, err := r.client.User.
 		Create().
 		SetEmail(email).
+		SetFio(fio).
+		SetRole(user.Role(role)).
 		SetPasswordHash(passwordHash).
 		Save(ctx)
 	if err != nil {

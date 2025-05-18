@@ -20,7 +20,7 @@ func NewServer(s Service) *Server {
 }
 
 func (s *Server) CreateUser(ctx context.Context, req *userpbv1.CreateUserRequest) (*userpbv1.CreateUserResponse, error) {
-	id, err := s.svc.CreateUser(ctx, req.Email, req.Fio, req.Password)
+	id, err := s.svc.CreateUser(ctx, req.Email, req.Fio, req.Role, req.Password)
 	if err != nil {
 		return nil, status.Error(codes.Internal, err.Error())
 	}
